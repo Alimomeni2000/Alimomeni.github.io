@@ -1,0 +1,40 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %} | Certifications{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Certifications</h2>
+
+    {% if certifications %}
+        <div class="row justify-content-center">
+            {% for cert in certifications %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-lg h-100 border-0 rounded-lg" style="background-color: white;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">{{ cert.title }}</h5>
+                            <p class="card-text mb-2">
+                                <strong>Description:</strong> {{ cert.description|safe }}
+                            </p>
+                            <p class="card-text mb-2">
+                                <strong>Issued by:</strong> {{ cert.organization }}
+                            </p>
+                            <p class="card-text mb-3">
+                                <strong>Date received:</strong> {{ cert.date_received|date:"F Y" }}
+                            </p>
+                            <a href="{{ cert.download_link }}" target="_blank" class="btn btn-outline-primary mt-auto">
+                                Download Certificate
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>No certifications available at the moment.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

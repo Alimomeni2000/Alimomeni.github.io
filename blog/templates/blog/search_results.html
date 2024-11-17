@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="display-4">Search Results for "{{ search }}"</h1>
+    
+    {% if articles %}
+        <p class="text-muted">Found {{ articles|length }} result(s)</p>
+        <div class="list-group">
+            {% for article in articles %}
+                <a href="{% url 'blog:article_detail' article.slug %}" class="list-group-item list-group-item-action mb-3">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ article.title }}</h5>
+                        <small>{{ article.jpublish|date:"F j, Y" }}</small>
+                    </div>
+                    <p class="mb-1 text-truncate">{{ article.content|slice:":150" }}...</p>
+                    <small>By {{ article.author }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            No articles found matching your query.
+        </div>
+    {% endif %}
+    
+    <a href="{% url 'blog:blog' %}" class="btn btn-secondary mt-4">Back to Blog</a>
+</div>
+{% endblock %}

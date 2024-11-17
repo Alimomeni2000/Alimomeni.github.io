@@ -1,0 +1,33 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %} | References{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5">References</h2>
+
+    {% if references %}
+        <div class="row justify-content-center">
+            {% for reference in references %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-lg h-100 border-0 rounded-lg" style="background-color: white;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">{{ reference.name }}</h5>
+                            <p class="card-text"><strong>Position:</strong> {{ reference.position }}</p>
+                            <p class="card-text"><strong>Contact:</strong> {{ reference.contact|safe }}</p>
+                            {% if reference.role %}
+                            <p class="card-text"><strong>role:</strong> {{ reference.role }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>No references found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

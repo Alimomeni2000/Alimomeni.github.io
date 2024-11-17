@@ -1,0 +1,48 @@
+{% extends 'portfolio/base.html' %}
+
+{% load static %}
+
+{% block title %}| About Me{% endblock %}
+
+{% block content %}
+<div class="container mt-5 about-section">
+    <div class="row">
+        <!-- Left section for text -->
+        <div class="col-md-6 about-text">
+            <h1 class="mb-4">About {{ about.name }}</h1>
+            <p class="lead">{{ about.bio|safe }}</p>
+
+            {% if about.file %}
+            <a href="{{ about.file.url }}" class="btn btn-outline-primary mt-3" target="_blank">Download CV</a>
+            {% endif %}
+        </div>
+
+        <!-- Right section for image -->
+        <div class="col-md-6 about-image-section text-center">
+            {% if about.image %}
+            <img src="{{ about.image.url }}" alt="{{ about.name }}" class="about-image img-fluid rounded-circle shadow-lg">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr class="my-5">
+
+<div class="container research-interests-section">
+    <h2 class="text-center mb-4">Research Interests</h2>
+    <ul class="list-group list-group-flush">
+        {% for interest in research_interests %}
+        <li class="list-group-item">
+            <strong>{{ interest.title }}</strong>: {{ interest.description }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<hr class="my-5">
+
+<div class="container text-center contact-section">
+    <h3>Contact Me</h3>
+    <p>If you'd like to get in touch, feel free to reach out through the <a href="{% url 'main:contact' %}">Contact</a> page.</p>
+</div>
+{% endblock %}

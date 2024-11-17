@@ -1,0 +1,136 @@
+{% extends 'blog/base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container container_con mt-5 text-left" style="max-width: 800px; margin: 0 auto;">
+    <h1 class="text-center">{{ article.title }}</h1>
+    
+    <!-- Article image and details -->
+    <div class="article-detail">
+        {% if article.image %}
+        <div class="article-image mb-4 text-center">
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" class="custom-image img-fluid rounded">
+        </div>
+        {% endif %}
+
+        <!-- Article metadata and content -->
+        <div class="article-meta mb-3 text-center">
+            <p class="text-muted"><strong>Views:</strong> {{ hit_count }}</p>
+            <p class="text-muted"><strong>Author:</strong> {{ article.author.username }}</p>
+            <p class="text-muted"><strong>Published on:</strong> {{ article.jpublish|date:"F j, Y - H:i" }}</p>
+        </div>
+
+        <!-- Content Section (Supports stripping tags) -->
+        <div class="article-content mb-4">
+            <p class="lead">{{ article.content|striptags }}</p> <!-- Stripping HTML tags -->
+        </div>
+    </div>
+
+    <!-- Back to articles button -->
+    <div class="text-center">
+        <a href="{% url 'blog:blog' %}" class="btn btn-primary">Back to Articles</a>
+    </div>
+
+
+    <!-- Comments Section -->
+<hr class="my-4">
+<div class="comments-section mt-5">
+    <h2 class="text-center mb-4">Comments</h2>
+
+    <!-- Display comments -->
+    <div id="comments" class="mb-4">
+        {% for comment in comments %}
+        <div class="comment card mb-3" id="comment-{{ comment.id }}">
+            <div class="card-body">
+                <p><strong>{{ comment.name }}</strong> says:</p>
+                <p>{{ comment.message }}</p>
+                <p class="text-muted"><small>Posted on {{ comment.created_at|date:"F j, Y - H:i" }}</small></p>
+
+                <!-- Reply button -->
+                <button class="btn btn-sm btn-secondary reply-button" data-comment-id="{{ comment.id }}">
+                    Reply
+                </button>
+
+                <!-- Reply form (hidden by default) -->
+                <div class="reply-form mt-3" id="reply-form-{{ comment.id }}" style="display: none;">
+                    <form method="POST" action="{% url 'blog:article_detail' article.slug %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <textarea name="message" class="form-control" placeholder="Write your reply here..." rows="2"></textarea>
+                        </div>
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        <button type="submit" class="btn btn-sm btn-primary">Submit Reply</button>
+                    </form>
+                </div>
+
+                <!-- Display replies -->
+                <div class="replies mt-3">
+                    {% for reply in comment.replies.all %}
+                    <div class="reply card mb-2" id="comment-{{ reply.id }}">
+                        <div class="card-body bg-light">
+                            <p><strong>{{ reply.name }}</strong> replies:</p>
+                            <p>{{ reply.message }}</p>
+                            <p class="text-muted"><small>Posted on {{ reply.created_at|date:"F j, Y - H:i" }}</small></p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Comment form -->
+    <h2 class="text-center mb-4">Leave a Comment</h2>
+    <form method="POST" action="{% url 'blog:article_detail' article.slug %}" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }} <!-- This will render the form fields -->
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </div>
+    </form>
+
+    <!-- Message if no comments exist -->
+    {% if not comments %}
+    <p class="text-center text-muted">No comments yet. Be the first to comment!</p>
+    {% endif %}
+</div>
+
+</div>
+
+<!-- Add MathJax Script for LaTeX Rendering -->
+<script type="text/javascript">
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']],
+        displayMath: [['\\[','\\]'], ['$$','$$']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+</script>
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const replyButtons = document.querySelectorAll('.reply-button');
+        replyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const commentId = this.getAttribute('data-comment-id');
+                const replyForm = document.getElementById('reply-form-' + commentId);
+                const isVisible = replyForm.style.display === 'block';
+
+                // Hide all reply forms
+                document.querySelectorAll('.reply-form').forEach(form => form.style.display = 'none');
+
+                // Toggle the clicked reply form
+                replyForm.style.display = isVisible ? 'none' : 'block';
+            });
+        });
+    });
+</script>
+
+
+{% endblock %}

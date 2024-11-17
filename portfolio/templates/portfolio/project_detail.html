@@ -1,0 +1,25 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5">{{ project.title }}</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 mb-4">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-body text-center">  <!-- Center text in the card -->
+                    <h5 class="card-title">Description</h5>
+                    <div class="card-text text-start">  <!-- Align text to the start for readability -->
+                        {{ project.description|safe }}
+                    </div>
+                    <a href="{% url 'portfolio:project_list' %}" class="btn btn-secondary mt-3">Back to Projects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

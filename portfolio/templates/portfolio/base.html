@@ -1,0 +1,20 @@
+{% extends 'mainBase.html' %}
+
+{% block title %}Ali Momeni | {% endblock %}
+
+{% block sub_nav %}
+<!-- Sub-navbar for Portfolio sections -->
+<nav class="nav nav-tabs mb-3">
+    <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:about' %}">About</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'education' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:education' %}">Education</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'skills' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:skills' %}">Skills</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'experience' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:experience' %}">Experience</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'certifications' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:certifications' %}">Certifications</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'project_list' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:project_list' %}">Projects</a>
+    <a class="nav-link {% if request.resolver_match.url_name == 'references' %}active fw-bold text-primary{% endif %}" href="{% url 'portfolio:references' %}">References</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<!-- Page-specific content goes here -->
+{% endblock %}

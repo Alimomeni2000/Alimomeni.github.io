@@ -1,0 +1,35 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% load custom_filters %}  {# Ensure this line is present and spelled correctly #}
+
+{% block title %} | Projects{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Projects</h2>
+
+    {% if projects %}
+        <div class="row justify-content-center">
+            {% for project in projects %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg h-100 border-0 rounded-lg d-flex flex-column">
+                        <div class="card-body flex-grow-1 d-flex flex-column">
+                            <h5 class="card-title">{{ project.title }}</h5>
+                            <div class="card-text flex-grow-1">
+                                {{ project.description|limit_words:50|safe }}  {# Limit to 50 words #}
+                            </div>
+                            <div class="mt-auto">  {# Ensures the button is pushed to the bottom #}
+                                <a href="{% url 'portfolio:project_detail' project.slug %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>No projects available.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

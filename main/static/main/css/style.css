@@ -1,0 +1,35 @@
+body {
+    background-color: #f8f9fa;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #f8f9fa !important; /* Link color */
+}
+
+.nav-link:hover {
+    color: #ffc107 !important; /* Hover color */
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    font-weight: bold;
+}

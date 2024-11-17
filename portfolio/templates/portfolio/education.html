@@ -1,0 +1,46 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %} | Education{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-5">Education</h2>
+
+    {% if education %}
+        <div class="row justify-content-center">
+            {% for edu in education %}
+                <div class="col-md-8 mb-4"> <!-- Make the column wider for better readability -->
+                    <div class="card shadow-lg h-100 border-0 rounded-lg" style="background-color: white;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-primary">{{ edu.degree }}</h5>
+                            <p class="card-text mb-2">
+                                <strong>Subject:</strong> {{ edu.subject }} <!-- Show subject if needed -->
+                            </p>
+                            <p class="card-text mb-2">
+                                <strong>Institution:</strong> {{ edu.institution }}
+                            </p>
+                            <p class="card-text mb-3">
+                                <strong>Start Date:</strong> {{ edu.start_date|date:"F Y" }} <!-- Format date if needed -->
+                                {% if edu.end_date %}
+                                    <br><strong>End Date:</strong> {{ edu.end_date|date:"F Y" }}
+                                {% endif %}
+                            </p>
+                            <p class="card-text mb-3">
+                                <strong>City:</strong> {{ edu.city }}
+                            </p>
+                            <p class="card-text mb-3">
+                                <strong>cPGA:</strong> {{ edu.cPGA }} <!-- Adjust labels as needed -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>No education records found.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

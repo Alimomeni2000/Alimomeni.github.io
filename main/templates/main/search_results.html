@@ -1,0 +1,98 @@
+<!-- search_results.html -->
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Search Results for "{{ query }}"</h1>
+
+    <div class="mb-4">
+        <h2>Articles</h2>
+        <ul class="list-group">
+            {% for article in articles %}
+                <li class="list-group-item">
+                    <a href="{% url 'blog:article_detail' article.slug %}">{{ article.title }}</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">No articles found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>About</h2>
+        <ul class="list-group">
+            {% for about in abouts %}
+                <li class="list-group-item">{{ about.name }}</li>
+            {% empty %}
+                <li class="list-group-item">No about entries found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Education</h2>
+        <ul class="list-group">
+            {% for education in educations %}
+                <li class="list-group-item">{{ education.degree }} from {{ education.institution }}</li>
+            {% empty %}
+                <li class="list-group-item">No education entries found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Experience</h2>
+        <ul class="list-group">
+            {% for experience in experiences %}
+                <li class="list-group-item">{{ experience.title }} at {{ experience.company }}</li>
+            {% empty %}
+                <li class="list-group-item">No experience entries found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Skills</h2>
+        <ul class="list-group">
+            {% for skill in skills %}
+                <li class="list-group-item">{{ skill.name }} ({{ skill.level }})</li>
+            {% empty %}
+                <li class="list-group-item">No skills found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Projects</h2>
+        <ul class="list-group">
+            {% for project in projects %}
+                <li class="list-group-item">{{ project.title }}</li>
+            {% empty %}
+                <li class="list-group-item">No projects found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>Certifications</h2>
+        <ul class="list-group">
+            {% for certification in certifications %}
+                <li class="list-group-item">{{ certification.title }} ({{ certification.year }})</li>
+            {% empty %}
+                <li class="list-group-item">No certifications found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h2>References</h2>
+        <ul class="list-group">
+            {% for reference in references %}
+                <li class="list-group-item">{{ reference.name }}, {{ reference.position }}</li>
+            {% empty %}
+                <li class="list-group-item">No references found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

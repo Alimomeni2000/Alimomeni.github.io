@@ -1,0 +1,72 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Published Articles</h1>
+
+    {% if articles %}
+    {% for article in articles %}
+        <div class="card mb-4" style="text-align: center; border: 1px solid #ddd; border-radius: 10px;">
+            {% if article.image %}
+                <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}" style="height: 300px; object-fit: cover; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+            {% endif %}
+            <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                <h5 class="card-title">
+                    <a href="{% url 'blog:article_detail' article.slug %}" class="text-dark">{{ article.title }}</a>
+                </h5>
+                <p class="card-text">{{ article.content|truncatewords:30|safe }}</p>
+                <p class="card-text"><strong>Category:</strong> {{ article.category.title }}</p>
+            </div>
+            <div class="card-footer text-muted">
+                <small>
+                    {% if article.jpublish %}
+                        <b>Published on:</b> {{ article.jpublish|date:"F j, Y - H:i" }}<br>
+                    {% else %}
+                        Publish date not available<br>
+                    {% endif %}
+                    <strong>Author:</strong> 
+                    {% if article.author %}
+                        {{ article.author.username }}
+                    {% else %}
+                        Admin
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Pagination block -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">&laquo; First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            No articles available at the moment.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

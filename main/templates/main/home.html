@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-4 mt-5">Welcome to my Website</h1>
+    <p class="lead mt-4">
+        I'm a Computer Engineering graduate from Shahid Chamran University of Ahvaz,Iran,
+        specializing in deep learning, computer vision, and artificial intelligence.I’ve
+        worked on a variety of projects, ranging from medical image classification using
+         neural networks to AI-driven systems in robotics and natural language processing.</p>
+
+
+    <p>With a solid foundation in machine learning, I strive to solve real-world challenges
+    in both academic and professional settings. Explore my portfolio to discover the projects
+     and research that showcase my journey in technology!</p>
+    <hr class="my-5">
+    
+    <div class="row text-center">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Portfolio</h2>
+                    <p class="card-text">Discover my latest projects and professional work.</p>
+                    <a href="{% url 'portfolio:about' %}" class="btn btn-primary">View Portfolio</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title">Blog</h2>
+                    <p class="card-text">Check out my latest articles and thoughts on various topics.</p>
+                    <a href="{% url 'blog:blog' %}" class="btn btn-secondary">Read Blog</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    min-height: 100vh;       /* Full viewport height */
+    background-color: #f0f0f0; /* Optional background color */
+}
+
+.container {
+    max-width: 800px;  /* Limit width */
+    width: 100%;       /* Full width */
+    padding: 20px;     /* Add padding */
+    text-align: center; /* Center text */
+    background: white;  /* Background for contrast */
+    border-radius: 8px; /* Optional rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
+
+h1 {
+    font-weight: bold;
+}
+
+.nav-link {
+    color: #f8f9fa !important; /* Link color */
+}
+
+.nav-link:hover {
+    color: #ffc107 !important; /* Hover color */
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.pagination .current {
+    font-weight: bold;
+}
+
+/* Custom black shadow */
+.custom-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* Strong black shadow */
+    transition: transform 0.3s ease-in-out;
+}
+
+.custom-shadow:hover {
+    transform: translateY(-10px); /* Slight lift effect on hover */
+}
+.notebook-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+.nav-link.active {
+    color: #3498db !important; /* Example blue shade */
+}
